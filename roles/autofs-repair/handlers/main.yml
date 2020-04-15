@@ -1,0 +1,8 @@
+---
+# Check each directory defined in the
+# variable automounted_dirs.  This
+# reverification step is defined as a handler
+# so it's done only when there was an issue.
+- name: Re-verify all automount directories
+  include: autofs-checkdir.yml test_dir={{ item }}
+  with_items: "{{ automounted_dirs | default([]) }}"

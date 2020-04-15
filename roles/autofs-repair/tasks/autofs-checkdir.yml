@@ -1,0 +1,23 @@
+---
+# Run asynchronously, and fail if directory is not
+# accessible within 3 seconds, indicating an issue
+# with the mountpoint.
+- name: Check if remote directory is accessible
+  stat:
+    path: "{{ test_dir }}"
+  register: stat_out
+  async: 3
+  poll: 1
+  ignore_errors: yes
+
+# If directory stat fails, set a flag so
+# autofs will be restarted once for all
+# mount points.
+- name: Attempt to remediate on failure
+  block:
+
+  - name: Set flag to restart autofs
+    set_fact:
+      autofs_restart_needed: yes
+
+  when: stat_out.stat.exists is not defined

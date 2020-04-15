@@ -1,0 +1,14 @@
+---
+# Uncomment the line below to specify
+# which mount points need to be verified.
+# Alternatively, define this variable in
+# your Ansible Tower template.
+#
+# automounted_dirs:
+# List of auto mounted directories to test.
+# There should be at least one directory
+# tested per NFS server.
+#
+# ----------
+#
+# automounted_dirs: ["/path/to/autofsdir1", "/path/to/autofsdir2"]

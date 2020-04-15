@@ -1,0 +1,15 @@
+---
+# Check each directory defined in the
+# variable automounted_dirs
+- name: Verify all automount directories
+  include: autofs-checkdir.yml test_dir={{ item }}
+  with_items: "{{ automounted_dirs | default([]) }}"
+
+# If any directory check fails, restart autofs,
+# then re-verify the same directories
+- name: Restart autofs service
+  service:
+    name: autofs
+    state: restarted
+  when: autofs_restart_needed is defined
+  notify: Re-verify all automount directories

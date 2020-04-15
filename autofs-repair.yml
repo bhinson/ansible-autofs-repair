@@ -1,0 +1,6 @@
+---
+- name: Verify and repair autofs mount points
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: autofs-repair
